@@ -1,9 +1,9 @@
 <template>
     <section class="home-page">
-      
         <img src="/src/assets/img/toys.svg" />
-        <login v-if="!isSignup" @signup="signup" />
-        <sign-up v-if="isSignup" @signup="signup"/>
+
+        <login v-if="!isSignup" @login="login" @signup="signup" @logout="logout" :loggedUser="user" />
+        <sign-up v-if="isSignup && !user" @signup="signup" />
     </section>
 </template>
 <script>
@@ -28,9 +28,19 @@ export default {
     methods: {
         signup() {
             this.isSignup = !this.isSignup
+        },
+        login(user) {
+            console.log(user);
+            this.$store.dispatch({ type: 'login', user });
+        },
+        logout(){
+            this.$store.commit({ type: 'logout' });
         }
     },
     computed: {
+        user() {
+            return this.$store.getters.getUsername
+        }
     },
     unmounted() {
     },

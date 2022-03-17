@@ -13,7 +13,7 @@
 export default {
     name: 'sign-up',
     props: [],
-    emits: [],
+    emits: ['signup'],
     components: {},
     data() {
         return {
