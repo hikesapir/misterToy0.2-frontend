@@ -1,0 +1,23 @@
+/** SETUP **/
+@import'setup/_functions.scss';
+@import'setup/_variables.scss';
+
+
+
+/** BASE **/
+@import 'basics/_base.scss';
+@import 'basics/_layout.scss';
+
+
+
+/** VIEWS **/
+@import 'views/_toy-app.scss';
+@import 'views/_homepage.scss';
+@import 'views/_about.scss';
+@import 'views/toy-edit.scss';
+
+/** COMPONENTS **/
+@import 'components/_app-header.scss';
+@import 'components/_app-footer.scss';
+@import 'components/_toy-preview.scss';
+@import 'components/_filter.scss';
