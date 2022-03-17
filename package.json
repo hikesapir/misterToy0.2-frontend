@@ -8,6 +8,7 @@
     "test:unit": "vitest --environment jsdom"
   },
   "dependencies": {
+    "@fawmi/vue-google-maps": "^0.9.4",
     "element-plus": "^2.1.4",
     "vue": "^3.2.31",
     "vue-router": "^4.0.12",
