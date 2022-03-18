@@ -18,6 +18,7 @@ export const toyStore = {
     },
     mutations: {
         setIsLoading(state, { isLoading }) {
+            console.log("isLoading", isLoading);
             state.isLoading = isLoading
         },
         setToys(state, { toys }) {
@@ -51,6 +52,7 @@ export const toyStore = {
             commit({ type: 'setIsLoading', isLoading: true })
             try {
                 const getToy = await toyService.save(toy)
+                console.log(getToy);
                 commit({ type: 'saveToy', getToy })
             } catch (err) {
                 console.log('saveToy err', err);
