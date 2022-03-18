@@ -10,8 +10,8 @@ const TOY_KEY = 'toysDB'
 export const toyService = {
     query,
     getById,
-    // remove,
-    // save,
+    remove,
+    save,
     getEmptyToy,
 }
 
@@ -33,6 +33,16 @@ function getEmptyToy() {
         inStock: true,
         reviews: ['Good', 'Nice', 'Fun'],
     };
+}
+
+function save(toy) {
+    console.log(toy);
+    if (toy._id) return storageService.put(TOY_KEY, toy)
+    return storageService.post(TOY_KEY, toy)
+}
+
+function remove(id) {
+    return storageService.remove(TOY_KEY, id)
 }
 
 

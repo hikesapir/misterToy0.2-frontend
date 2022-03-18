@@ -3,7 +3,7 @@
         <toy-filter />
         <el-button class="btn" @click="goAdd()" type="primary" round>Add new toy</el-button>
         <p v-if="isLoading">Loading...</p>
-        <toy-list :toys="toys" />
+        <toy-list :toys="toys" @removeToy="removeToy" />
     </section>
 </template>
 <script>
@@ -29,6 +29,9 @@ export default {
     methods: {
         goAdd() {
             this.$router.push('/toy/edit')
+        },
+        removeToy(toyId) {
+            this.$store.dispatch({ type: 'removeToy', id: toyId })
         },
     },
     computed: {

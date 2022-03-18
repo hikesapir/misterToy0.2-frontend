@@ -15,7 +15,7 @@
         <div class="btn-container">
             <el-button @click="goToEdit" type="primary">edit</el-button>
             <el-button type="primary">details</el-button>
-            <el-button type="danger">delete</el-button>
+            <el-button @click="removeToy" type="danger">delete</el-button>
         </div>
     </li>
 </template>
@@ -27,7 +27,7 @@ export default {
     props: {
         toy: Object,
     },
-    emits: [],
+    emits: ['removeToy'],
     components: {
 
     },
@@ -42,6 +42,9 @@ export default {
     methods: {
         goToEdit() {
             this.$router.push(`/toy/edit/${this.toy._id}`);
+        },
+        removeToy() {
+            this.$emit("removeToy", this.toy._id);
         },
     },
     computed: {

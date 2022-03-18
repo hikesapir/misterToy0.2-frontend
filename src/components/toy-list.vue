@@ -1,6 +1,6 @@
 <template>
     <ul class="toy-list list-layout">
-        <toy-preview v-for="toy in toys" :toy="toy" :key="toy._id" ></toy-preview>
+        <toy-preview v-for="toy in toys" :toy="toy" :key="toy._id" @removeToy="removeToy"></toy-preview>
     </ul>
 </template>
 
@@ -11,7 +11,7 @@ export default {
     props: {
         toys: Array
     },
-    emits: [],
+    emits: ['removeToy'],
     components: {
         toyPreview,
     },
@@ -23,7 +23,11 @@ export default {
     },
     mounted() {
     },
-    methods: {},
+    methods: {
+        removeToy(toyId) {
+            this.$emit("removeToy", toyId);
+        },
+    },
     computed: {
     },
     unmounted() {

@@ -1,6 +1,8 @@
 <template>
   <app-header />
-  <router-view class="main-layout" />
+  <router-view v-if="!isLoading" class="main-layout" />
+  <p v-if="isLoading">Loading...</p>
+
   <app-footer />
 </template>
 
@@ -26,6 +28,9 @@ export default {
   },
   methods: {},
   computed: {
+    isLoading() {
+      return this.$store.getters.isLoading
+    }
   },
   unmounted() {
   },
