@@ -1,9 +1,14 @@
 <template>
     <section class="home-page">
         <img src="/src/assets/img/toys.svg" />
-
-        <!-- <login v-if="!isSignup" @login="login" @signup="signup" @logout="logout" :loggedUser="user.username" /> -->
-        <login v-if="!isSignup" @login="login" @signup="signup" @logout="logout" />
+        <login
+            v-if="!isSignup"
+            @login="login"
+            @signup="signup"
+            @logout="logout"
+            :loggedUser="user.username"
+        />
+        <!-- <login v-if="!isSignup" @login="login" @signup="signup" @logout="logout" /> -->
         <sign-up v-if="isSignup && !user" @signup="signup" />
     </section>
 </template>
@@ -27,15 +32,19 @@ export default {
     mounted() {
     },
     methods: {
-        signup() {
+        signup(user) {
+            if (this.isSignup) {
+                this.$store.dispatch({ type: 'signup', user });
+            }
             this.isSignup = !this.isSignup
         },
         login(user) {
             console.log(user);
             this.$store.dispatch({ type: 'login', user });
         },
-        logout(){
-            this.$store.commit({ type: 'logout' });
+        logout() {
+            this.$store.dispatch({ type: 'logout'});
+            // this.$store.commit({ type: 'logout' });
         }
     },
     computed: {

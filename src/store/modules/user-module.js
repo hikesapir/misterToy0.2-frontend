@@ -12,26 +12,36 @@ export const userStore = {
         }
     },
     mutations: {
-        setLoggedinUser(state, { user }) {
-            state.user = user
+        setLoggedinUser(state) {
+            state.user = userService.getLoggedinUser()
         },
-        logout(state){
+        logout(state) {
             userService.logout()
-            state.user = { username: '', password: '' }            
+            state.user = { username: '', password: '' }
         }
     },
     actions: {
         async login(context, { user }) {
-console.log(user);
             try {
-                const loggedUser = await userService.checkLogin(user)
-                context.commit({
-                    type: 'setLoggedinUser',
-                    user: loggedUser
-                })
+                const loggedUser = await userService.login(user)
+                console.log('loggedUser', loggedUser);
+                context.commit({ type: 'setLoggedinUser' })
 
             } catch (err) {
                 console.log('login', err);
+            }
+        },
+        async signup(context, { user }) {
+
+        },
+        async logout(context) {
+            try {
+                const res = await userService.logout()
+                console.log('logout', res);
+                context.commit({ type: 'setLoggedinUser' })
+
+            } catch (err) {
+                console.log('logout', err);
             }
         },
     },

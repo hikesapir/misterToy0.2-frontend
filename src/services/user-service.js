@@ -2,43 +2,49 @@
 
 import { utilService } from './util-service.js'
 import { storageService } from './async-storage-service.js'
-
+import axios from 'axios';
 
 const USERS_KEY = 'usersDB'
 // const gUsers = _createUsers();
 
 
 export const userService = {
-    checkLogin,
+    login,
+    // checkLogin,
     // signup,
     logout,
     getLoggedinUser,
 }
 
-function checkLogin({ username, password }) {
+const USER_URL = (process.env.NODE_ENV !== 'development') ? '/api/auth/' : '//localhost:3030/api/auth/';
 
-    return storageService.query(USERS_KEY)
-        .then(users => {
-            var user = users.find(user => user.username === username && user.password === password)
-            if (!user) throw 'Invalid Credentials'
-            utilService.saveToStorage('loggedinUser', user)
-            user = { ...user }
-            return user
-        })
+
+async function login({ username, password }) {
+    try {
+        const res = await axios.post(USER_URL + 'login', { username, password })
+        utilService.saveToStorage('loggedinUser', res.data)
+        return res.data
+    } catch (err) {
+        console.log('login err', err);
+        throw err
+    }
+}
+
+
+async function logout() {
+    try {
+        const res = await axios.post(USER_URL + 'logout')
+        utilService.saveToStorage('loggedinUser', '')
+        return res.data
+    } catch (err) {
+        console.log('logout err', err);
+    }
+
+
 }
 
 function getLoggedinUser() {
     return utilService.loadFromStorage('loggedinUser')
-}
-
-function logout() {
-    utilService.saveToStorage('loggedinUser', {
-        fullname: null,
-        username: null,
-        password: null,
-        isAdmin: null
-    })
-
 }
 
 function _createUsers() {
