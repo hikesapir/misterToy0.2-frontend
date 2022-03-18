@@ -14,7 +14,7 @@
         </p>
         <div class="btn-container">
             <el-button @click="goToEdit" type="primary">edit</el-button>
-            <el-button type="primary">details</el-button>
+            <el-button @click="goToDetail" type="primary">details</el-button>
             <el-button @click="removeToy" type="danger">delete</el-button>
         </div>
     </li>
@@ -45,6 +45,9 @@ export default {
         },
         removeToy() {
             this.$emit("removeToy", this.toy._id);
+        },
+        goToDetail() {
+            this.$router.push(`/toy/${this.toy._id}`);
         },
     },
     computed: {
