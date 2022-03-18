@@ -5,7 +5,7 @@ import { storageService } from './async-storage-service.js'
 
 
 const USERS_KEY = 'usersDB'
-const gUsers = _createUsers();
+// const gUsers = _createUsers();
 
 
 export const userService = {

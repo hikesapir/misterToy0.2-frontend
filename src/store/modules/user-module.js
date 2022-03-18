@@ -8,7 +8,7 @@ export const userStore = {
     },
     getters: {
         getUsername(state) {
-            return JSON.parse(JSON.stringify(state.user.username))
+            return JSON.parse(JSON.stringify(state.user))
         }
     },
     mutations: {

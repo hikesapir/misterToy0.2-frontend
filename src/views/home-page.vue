@@ -2,7 +2,8 @@
     <section class="home-page">
         <img src="/src/assets/img/toys.svg" />
 
-        <login v-if="!isSignup" @login="login" @signup="signup" @logout="logout" :loggedUser="user" />
+        <!-- <login v-if="!isSignup" @login="login" @signup="signup" @logout="logout" :loggedUser="user.username" /> -->
+        <login v-if="!isSignup" @login="login" @signup="signup" @logout="logout" />
         <sign-up v-if="isSignup && !user" @signup="signup" />
     </section>
 </template>
