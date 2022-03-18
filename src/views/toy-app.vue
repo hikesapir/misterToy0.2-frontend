@@ -26,7 +26,11 @@ export default {
     },
     mounted() {
     },
-    methods: {},
+    methods: {
+        goAdd() {
+            this.$router.push('/toy/edit')
+        },
+    },
     computed: {
         toys() {
             return this.$store.getters.toys

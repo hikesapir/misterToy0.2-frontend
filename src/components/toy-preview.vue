@@ -13,7 +13,7 @@
             {{ toy.inStock }}
         </p>
         <div class="btn-container">
-            <el-button type="primary">edit</el-button>
+            <el-button @click="goToEdit" type="primary">edit</el-button>
             <el-button type="primary">details</el-button>
             <el-button type="danger">delete</el-button>
         </div>
@@ -39,7 +39,11 @@ export default {
     },
     mounted() {
     },
-    methods: {},
+    methods: {
+        goToEdit() {
+            this.$router.push(`/toy/edit/${this.toy._id}`);
+        },
+    },
     computed: {
     },
     unmounted() {

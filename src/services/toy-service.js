@@ -9,14 +9,30 @@ const TOY_KEY = 'toysDB'
 
 export const toyService = {
     query,
-    // getById,
+    getById,
     // remove,
     // save,
-    // getEmptyCar,
+    getEmptyToy,
 }
 
 function query() {
     return storageService.query(TOY_KEY)
+}
+
+function getById(id) {
+    return storageService.get(TOY_KEY, id)
+}
+
+function getEmptyToy() {
+    return {
+        _id: '',
+        name: '',
+        price: 0,
+        labels: [],
+        createdAt: new Date(Date.now()).toLocaleString(),
+        inStock: true,
+        reviews: ['Good', 'Nice', 'Fun'],
+    };
 }
 
 

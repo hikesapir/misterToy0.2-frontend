@@ -2,7 +2,7 @@
 
 import { toyService } from "../../services/toy-service";
 
-export  const toyStore ={
+export const toyStore = {
     state: {
         toys: [],
         isLoading: false,
