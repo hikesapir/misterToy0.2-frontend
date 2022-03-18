@@ -1,7 +1,5 @@
 <template>
-<section class="dashboard">
-    dashboard
-</section>
+    <section class="dashboard">dashboard</section>
 </template>
 <script>
 export default {
@@ -11,6 +9,9 @@ export default {
     components: {},
     data() {
         return {}
+    },
+    created() {
+
     },
     mounted() {
     },

@@ -2,13 +2,14 @@
 
 import { toyService } from "../../services/toy-service";
 
-export default {
+export  const toyStore ={
     state: {
         toys: [],
+        isLoading: false,
     },
     getters: {
         isLoading(state) {
-            return JSON.parse(JSON.stringify(state.isLoadin))
+            return state.isLoading
         },
         toys(state) {
             return JSON.parse(JSON.stringify(state.toys))
@@ -26,7 +27,7 @@ export default {
         async loadToys(context) {
             context.commit({ type: 'setIsLoading', isLoading: true })
             try {
-                const toys = toyService.query()
+                const toys = await toyService.query()
                 context.commit({ type: 'setToys', toys })
             } catch (err) {
                 console.log('loadToys err', err);

@@ -1,7 +1,7 @@
 <template>
-<section class="toy-edit">
-    toy-edit
-</section>
+    <section class="toy-edit">
+        <h1>{{ title }}</h1>
+    </section>
 </template>
 <script>
 export default {
@@ -12,10 +12,24 @@ export default {
     data() {
         return {}
     },
+    created() {
+        if (this.toyId) {
+            toyService.getById(this.toyId).then(toy => this.toyToEdit = toy)
+        } else {
+            this.toyToEdit = toyService.getEmptyToy()
+        }
+    },
     mounted() {
     },
     methods: {},
     computed: {
+        toyId() {
+            return this.$route.params.toyId
+        },
+        title() {
+            return this.toyId ? 'Toy Edit' : 'Toy Add'
+        },
+
     },
     unmounted() {
     },

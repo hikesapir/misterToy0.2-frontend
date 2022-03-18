@@ -5,6 +5,7 @@ import { storageService } from "./async-storage-service.js";
 import { utilService } from "./util-service.js";
 
 const TOY_KEY = 'toysDB'
+// const gToys = _createToys()
 
 export const toyService = {
     query,
@@ -15,11 +16,10 @@ export const toyService = {
 }
 
 function query() {
-    return storageService.query(KEY)
+    return storageService.query(TOY_KEY)
 }
 
 
-_createToys()
 function _createToys() {
     const toys = [{
         "_id": "Lk3sn",
@@ -68,4 +68,5 @@ function _createToys() {
         ]
     }]
     storageService.postMany(TOY_KEY, toys)
+    return toys
 }

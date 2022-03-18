@@ -17,7 +17,7 @@
 export default {
     name: 'login',
     props: { loggedUser: String },
-    emits: ['signup','login','logout'],
+    emits: ['signup', 'login', 'logout'],
     components: {},
     data() {
         return {
@@ -26,6 +26,9 @@ export default {
                 password: '',
             }
         }
+    },
+    created() {
+
     },
     mounted() {
     },
@@ -36,7 +39,7 @@ export default {
         signup() {
             this.$emit('signup')
         },
-        logout(){
+        logout() {
             this.$emit('logout')
         }
     },
