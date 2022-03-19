@@ -3,7 +3,7 @@
         <toy-filter />
         <el-button class="btn" @click="goAdd()" type="primary" round>Add new toy</el-button>
         <p v-if="isLoading">Loading...</p>
-        <toy-list :toys="toys" @removeToy="removeToy" />
+        <toy-list :isAdmin="user.isAdmin" :toys="toys" @removeToy="removeToy" />
     </section>
 </template>
 <script>
@@ -40,6 +40,9 @@ export default {
         },
         isLoading() {
             return this.$store.getters.isLoading
+        },
+        user() {
+            return this.$store.getters.getUser
         }
     },
     unmounted() {

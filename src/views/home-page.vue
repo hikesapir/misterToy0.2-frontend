@@ -49,7 +49,7 @@ export default {
     },
     computed: {
         user() {
-            return this.$store.getters.getUsername
+            return this.$store.getters.getUser
         }
     },
     unmounted() {

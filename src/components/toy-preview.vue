@@ -12,11 +12,7 @@
             <span>inStock:</span>
             {{ toy.inStock }}
         </p>
-        <div class="btn-container">
-            <el-button @click="goToEdit" type="primary">edit</el-button>
-            <el-button @click="goToDetail" type="primary">details</el-button>
-            <el-button @click="removeToy" type="danger">delete</el-button>
-        </div>
+        <slot></slot>
     </li>
 </template>
 
@@ -27,7 +23,7 @@ export default {
     props: {
         toy: Object,
     },
-    emits: ['removeToy'],
+    emits: [],
     components: {
 
     },
@@ -40,17 +36,10 @@ export default {
     mounted() {
     },
     methods: {
-        goToEdit() {
-            this.$router.push(`/toy/edit/${this.toy._id}`);
-        },
-        removeToy() {
-            this.$emit("removeToy", this.toy._id);
-        },
-        goToDetail() {
-            this.$router.push(`/toy/${this.toy._id}`);
-        },
+
     },
     computed: {
+
     },
     unmounted() {
     },

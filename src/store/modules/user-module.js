@@ -7,7 +7,7 @@ export const userStore = {
         user: userService.getLoggedinUser(),
     },
     getters: {
-        getUsername(state) {
+        getUser(state) {
             return JSON.parse(JSON.stringify(state.user))
         }
     },
