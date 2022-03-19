@@ -21,7 +21,7 @@ export const toyService = {
 }
 
 async function query(filterBy) {
-    console.log('qurey');
+    console.log(filterBy);
     try {
         const res = await axios.get(TOY_URL, { params: filterBy })
         console.log('toys', res.data);

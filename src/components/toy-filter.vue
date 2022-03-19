@@ -5,10 +5,11 @@
             type="text"
             placeholder="Search toy.."
             v-model="filterBy.name"
+            @input="setFilter"
         />
         <label>
             Stock:
-            <el-select class="select" v-model="filterBy.inStock">
+            <el-select  @change="setFilter" class="select" v-model="filterBy.inStock">
                 <el-option
                     v-for="stock in stockOptions"
                     :key="stock.label"
@@ -19,7 +20,7 @@
         </label>
         <label>
             Labels:
-            <el-select class="select" v-model="filterBy.labels" multiple placeholder="Select">
+            <el-select @change="setFilter" class="select" v-model="filterBy.labels" multiple placeholder="Select">
                 <el-option
                     v-for="label in labelOptions"
                     :key="label"
@@ -30,8 +31,8 @@
         </label>
         <label>
             Sort By:
-            <el-select class="select" v-model="filterBy.sortBy">
-                <el-option v-for="sort in sortOptions" :key="sort" :label="sort" :value="sort" />
+            <el-select @change="setFilter" class="select" v-model="filterBy.sortBy">
+                <el-option v-for="sort in sortOptions" :key="sort.label" :label="sort.label" :value="sort.value" />
             </el-select>
         </label>
     </section>
@@ -40,7 +41,7 @@
 export default {
     name: 'toy-filter',
     props: [],
-    emits: [],
+    emits: ['setFilter'],
     components: {},
     data() {
         return {
@@ -52,7 +53,7 @@ export default {
             },
             stockOptions: [{ label: 'All', value: '' }, { label: 'In stock', value: true }, { label: 'Out stock', value: false }],
             labelOptions: ['On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle', 'Outdoor', 'Battery Powered'],
-            sortOptions: ['Time', 'Name', 'Price']
+            sortOptions: [{ label: 'Time', value: 'ceartedAt' },{ label: 'Name', value: 'name' },{ label: 'Price', value: 'price' }]
 
         }
     },
@@ -61,7 +62,11 @@ export default {
     },
     mounted() {
     },
-    methods: {},
+    methods: {
+        setFilter() {
+            this.$emit('setFilter', JSON.parse(JSON.stringify(this.filterBy)));
+        },
+    },
     computed: {
     },
     unmounted() {

@@ -1,6 +1,6 @@
 <template>
     <section class="toy-app">
-        <toy-filter />
+        <toy-filter @setFilter="setFilter" />
         <el-button class="btn" @click="goAdd()" type="primary" round>Add new toy</el-button>
         <p v-if="isLoading">Loading...</p>
         <toy-list :isAdmin="user.isAdmin" :toys="toys" @removeToy="removeToy" />
@@ -32,6 +32,9 @@ export default {
         },
         removeToy(toyId) {
             this.$store.dispatch({ type: 'removeToy', id: toyId })
+        },
+        setFilter(filterBy) {
+            this.$store.dispatch({ type: 'filter', filterBy });
         },
     },
     computed: {

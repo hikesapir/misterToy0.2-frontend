@@ -5,8 +5,12 @@ import { toyService } from "../../services/toy-service";
 export const toyStore = {
     state: {
         toys: [],
-        filterBy: null,
-        isLoading: false,
+        filterBy: {
+            name: '',
+            inStock: '',
+            labels: [],
+            sortBy: 'Time',
+        },
     },
     getters: {
         isLoading(state) {
@@ -35,12 +39,15 @@ export const toyStore = {
             const idx = state.toys.findIndex((toy) => toy._id === id)
             state.toys.splice(idx, 1)
         },
+        setFilter(state, { filterBy }) {
+            state.filterBy = filterBy;
+        },
     },
     actions: {
         async loadToys(context) {
             context.commit({ type: 'setIsLoading', isLoading: true })
             try {
-                const toys = await toyService.query()
+                const toys = await toyService.query(context.state.filterBy)
                 context.commit({ type: 'setToys', toys })
             } catch (err) {
                 console.log('loadToys err', err);
@@ -68,6 +75,10 @@ export const toyStore = {
             } catch (err) {
                 console.log('removeToy err', err);
             }
+        },
+        filter({ commit, dispatch }, { filterBy }) {
+            commit({ type: 'setFilter', filterBy });
+            dispatch({ type: 'loadToys' });
         },
     },
 }

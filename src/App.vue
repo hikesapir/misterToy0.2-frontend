@@ -1,6 +1,6 @@
 <template>
   <app-header />
-  <router-view v-if="!isLoading" class="main-layout" />
+  <router-view  class="main-layout" />
   <p v-if="isLoading">Loading...</p>
 
   <app-footer />
