@@ -11,17 +11,17 @@ const USERS_KEY = 'usersDB'
 export const userService = {
     login,
     // checkLogin,
-    // signup,
+    signup,
     logout,
     getLoggedinUser,
 }
 
-const USER_URL = (process.env.NODE_ENV !== 'development') ? '/api/auth/' : '//localhost:3030/api/auth/';
+const AUTH_URL = (process.env.NODE_ENV !== 'development') ? '/api/auth/' : '//localhost:3030/api/auth/';
 
 
 async function login({ username, password }) {
     try {
-        const res = await axios.post(USER_URL + 'login', { username, password })
+        const res = await axios.post(AUTH_URL + 'login', { username, password })
         utilService.saveToStorage('loggedinUser', res.data)
         return res.data
     } catch (err) {
@@ -30,17 +30,24 @@ async function login({ username, password }) {
     }
 }
 
-
 async function logout() {
     try {
-        const res = await axios.post(USER_URL + 'logout')
+        const res = await axios.post(AUTH_URL + 'logout')
         utilService.saveToStorage('loggedinUser', '')
         return res.data
     } catch (err) {
         console.log('logout err', err);
     }
+}
 
-
+async function signup({ fullname, username, password }) {
+    try {
+        const res = await axios.post(AUTH_URL + 'signup', { fullname, username, password })
+        utilService.saveToStorage('loggedinUser', res.data)
+        return res.data
+    } catch (err) {
+        console.log('signup err', err);
+    }
 }
 
 function getLoggedinUser() {

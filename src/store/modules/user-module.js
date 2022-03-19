@@ -32,7 +32,14 @@ export const userStore = {
             }
         },
         async signup(context, { user }) {
+            try {
+                const loggedUser = await userService.signup(user)
+                console.log('signup', loggedUser);
+                context.commit({ type: 'setLoggedinUser' })
 
+            } catch (err) {
+                console.log('signup', err);
+            }
         },
         async logout(context) {
             try {
