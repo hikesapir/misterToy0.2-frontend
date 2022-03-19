@@ -33,7 +33,6 @@ export default {
         const { id } = this.$route.params
 
         toyService.getById(id).then((toy) => {
-            console.log(toy);
             this.toy = toy
         })
     },

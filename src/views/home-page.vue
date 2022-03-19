@@ -39,7 +39,6 @@ export default {
             this.isSignup = !this.isSignup
         },
         login(user) {
-            console.log(user);
             this.$store.dispatch({ type: 'login', user });
         },
         logout() {

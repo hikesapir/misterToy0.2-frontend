@@ -22,7 +22,6 @@ export const toyStore = {
     },
     mutations: {
         setIsLoading(state, { isLoading }) {
-            console.log("isLoading", isLoading);
             state.isLoading = isLoading
         },
         setToys(state, { toys }) {
@@ -33,7 +32,6 @@ export const toyStore = {
             const idx = state.toys.findIndex((currToy) => currToy._id === toy._id)
             if (idx !== -1) state.toys.splice(idx, 1, toy)
             else state.toys.unshift(toy)
-            console.log(state.toys);
         },
         removeToy(state, { id }) {
             const idx = state.toys.findIndex((toy) => toy._id === id)
@@ -59,7 +57,6 @@ export const toyStore = {
             commit({ type: 'setIsLoading', isLoading: true })
             try {
                 const getToy = await toyService.save(toy)
-                console.log(getToy);
                 commit({ type: 'saveToy', getToy })
             } catch (err) {
                 console.log('saveToy err', err);

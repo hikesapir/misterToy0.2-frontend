@@ -68,7 +68,6 @@ export default {
   },
   methods: {
     updateLoc({ lat, lng }) {
-      console.log(lat, lng);
       this.center = { lat: lat, lng: lng }
     },
   },

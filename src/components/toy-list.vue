@@ -4,7 +4,7 @@
             <div v-if="isAdmin" class="btn-container">
                 <el-button @click="goToEdit" type="primary">edit</el-button>
                 <el-button @click="goToDetail" type="primary">details</el-button>
-                <el-button @click="removeToy" type="danger">delete</el-button>
+                <el-button @click="removeToy(toy._id)" type="danger">delete</el-button>
             </div>
         </toy-preview>
     </ul>
@@ -37,8 +37,8 @@ export default {
         goToEdit() {
             this.$router.push(`/toy/edit/${this.toy._id}`);
         },
-        removeToy() {
-            this.$emit("removeToy", this.toy._id);
+        removeToy(id) {
+            this.$emit("removeToy", id);
         },
         goToDetail() {
             this.$router.push(`/toy/${this.toy._id}`);

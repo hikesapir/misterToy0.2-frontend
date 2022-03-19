@@ -4,6 +4,7 @@
 import { storageService } from "./async-storage-service.js";
 import { utilService } from "./util-service.js";
 import axios from 'axios';
+axios.defaults.withCredentials = true;
 
 
 const TOY_KEY = 'toysDB'
@@ -21,10 +22,8 @@ export const toyService = {
 }
 
 async function query(filterBy) {
-    console.log(filterBy);
     try {
         const res = await axios.get(TOY_URL, { params: filterBy })
-        console.log('toys', res.data);
         return res.data
     } catch (err) {
         console.log('query err', err);

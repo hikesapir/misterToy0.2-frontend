@@ -1,14 +1,27 @@
 <template>
-    <section class="dashboard">dashboard</section>
+    <section class="dashboard">
+        dashboard
+        <DoughnutChart :chartData="testData" />
+    </section>
 </template>
 <script>
+import { defineComponent } from 'vue';
+import { DoughnutChart } from 'vue-chart-3';
+import { Chart, registerables } from "chart.js";
+
+Chart.register(...registerables);
+
 export default {
     name: 'dashboard',
     props: [],
     emits: [],
-    components: {},
+    components: {
+        DoughnutChart,
+    },
     data() {
-        return {}
+        return {
+            labels: ['On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle', 'Outdoor'],
+        }
     },
     created() {
 
@@ -17,6 +30,34 @@ export default {
     },
     methods: {},
     computed: {
+         toyCountByType() {
+            const labelMap = {}
+            this.toys.forEach(toy => {
+                toy.labels.forEach(label => {
+                    if (!labelMap[label]) {
+                        labelMap[label] = 0
+                    }
+                    labelMap[label]++
+                })
+            })
+            return [... this.labels.map(label => {
+                return (labelMap[label]) ? labelMap[label] : 0
+            })]
+           
+        },
+        toys() {
+            return this.$store.getters.toys
+        },
+        testData(){
+            return {
+                labels: this.labels,
+                datasets: [
+                    {
+                        data: this.toyCountByType,
+                        backgroundColor: ['#77CEFF', '#0079AF', '#123E6B', '#97B0C4', '#A5C8ED', '#97B0C4', '#A5C8ED'],
+                    },
+                ],
+            }}
     },
     unmounted() {
     },

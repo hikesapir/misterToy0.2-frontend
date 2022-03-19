@@ -1,7 +1,7 @@
 <template>
     <section class="toy-app">
         <toy-filter @setFilter="setFilter" />
-        <el-button class="btn" @click="goAdd()" type="primary" round>Add new toy</el-button>
+        <el-button v-if="user.isAdmin" class="btn" @click="goAdd()" type="primary" round>Add new toy</el-button>
         <p v-if="isLoading">Loading...</p>
         <toy-list :isAdmin="user.isAdmin" :toys="toys" @removeToy="removeToy" />
     </section>

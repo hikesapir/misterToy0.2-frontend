@@ -31,7 +31,6 @@ export default {
     },
     methods: {
         signup() {
-            console.log('signup');
             this.$emit('signup', this.user);
         }
     },

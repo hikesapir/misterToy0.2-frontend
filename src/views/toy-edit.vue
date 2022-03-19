@@ -65,7 +65,6 @@ export default {
     },
     methods: {
         saveToy() {
-            console.log('frist saveToy', this.toyToEdit);
             this.$store.dispatch({ type: 'saveToy', toy: this.toyToEdit })
             this.$router.push('/toy')
         },

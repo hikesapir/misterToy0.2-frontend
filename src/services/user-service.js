@@ -4,6 +4,8 @@ import { utilService } from './util-service.js'
 import { storageService } from './async-storage-service.js'
 import axios from 'axios';
 
+axios.defaults.withCredentials = true;
+
 const USERS_KEY = 'usersDB'
 // const gUsers = _createUsers();
 
