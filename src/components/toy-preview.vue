@@ -12,7 +12,6 @@
             <span>inStock:</span>
             {{ toy.inStock }}
         </p>
-        {{toy}}
         <slot></slot>
     </li>
 </template>

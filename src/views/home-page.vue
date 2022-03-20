@@ -6,7 +6,7 @@
             @login="login"
             @signup="signup"
             @logout="logout"
-            :loggedUser="user.username"
+            :loggedUser="user"
         />
         <!-- <login v-if="!isSignup" @login="login" @signup="signup" @logout="logout" /> -->
         <sign-up v-if="isSignup && !user" @signup="signup" />

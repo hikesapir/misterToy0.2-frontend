@@ -9,20 +9,25 @@
             <p>inStock: {{ toy.inStock }}</p>
             <hr />
             <b>review:</b>
-            <p v-for="review in toy.reviews">{{ review }}</p>
-            <el-button type="primary" round>Add new review</el-button>
+            <p v-for="review in toy.reviews">- {{ review }}
+            <hr></p>
+            <el-button type="primary" round>Add review</el-button>
         </div>
+        <add-review @addReview="addReview" :toyId="toy._id"/>
     </section>
 </template>
 
 <script>
 import { toyService } from "../services/toy-service"
+import addReview from "../components/add-review.vue"
 
 export default {
     name: 'toy-details',
     props: [],
     emits: [],
-    components: {},
+    components: {
+        addReview
+    },
     data() {
         return {
             toy: null,
@@ -31,14 +36,18 @@ export default {
     },
     created() {
         const { id } = this.$route.params
-
         toyService.getById(id).then((toy) => {
             this.toy = toy
         })
     },
     mounted() {
     },
-    methods: {},
+    methods: {
+        addReview(review) {
+            console.log(review);
+            this.$store.dispatch({ type: 'addReview', review });
+        }
+    },
     computed: {
     },
     unmounted() {

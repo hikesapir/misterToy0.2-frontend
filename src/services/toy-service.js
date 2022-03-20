@@ -3,6 +3,10 @@
 
 import { storageService } from "./async-storage-service.js";
 import { utilService } from "./util-service.js";
+//yaron addition
+import { httpService } from './http.service'
+// import { socketService, SOCKET_EVENT_USER_UPDATED } from './socket.service'
+
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 
@@ -10,7 +14,7 @@ axios.defaults.withCredentials = true;
 const TOY_KEY = 'toysDB'
 // const gToys = _createToys()
 
-const TOY_URL = (process.env.NODE_ENV !== 'development') ? '/api/toy/' : '//localhost:3030/api/toy/';
+const TOY_URL =  'toy/';
 
 
 export const toyService = {
@@ -23,8 +27,9 @@ export const toyService = {
 
 async function query(filterBy) {
     try {
-        const res = await axios.get(TOY_URL, { params: filterBy })
-        return res.data
+        const res = await httpService.get(TOY_URL, { params: filterBy })
+        console.log(res);
+        return res
     } catch (err) {
         console.log('query err', err);
         throw err
@@ -33,8 +38,8 @@ async function query(filterBy) {
 
 async function getById(toyId) {
     try {
-        const res = await axios.get(TOY_URL + toyId)
-        return res.data
+        const res = await httpService.get(TOY_URL + toyId)
+        return res
     } catch (err) {
         console.log('getById err', err);
         throw err
@@ -45,11 +50,11 @@ async function save(toy) {
     try {
         var res = ''
         if (toy._id) {
-            res = await axios.put(TOY_URL + toy._id, toy)
+            res = await httpService.put(TOY_URL + toy._id, toy)
         } else {
-            res = await axios.post(TOY_URL, toy)
+            res = await httpService.post(TOY_URL, toy)
         }
-        return res.data
+        return res
     } catch (err) {
         console.log('save err', err);
         throw err
@@ -58,8 +63,8 @@ async function save(toy) {
 
 async function remove(toyId) {
     try {
-        const res = await axios.delete(TOY_URL + toyId)
-        return res.data
+        const res = await httpService.delete(TOY_URL + toyId)
+        return res
     } catch (err) {
         console.log('remove err', err);
         throw err

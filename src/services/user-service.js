@@ -3,6 +3,10 @@
 import { utilService } from './util-service.js'
 import { storageService } from './async-storage-service.js'
 import axios from 'axios';
+//yaron addition
+import { httpService } from './http.service'
+// import { socketService, SOCKET_EVENT_USER_UPDATED } from './socket.service'
+
 
 axios.defaults.withCredentials = true;
 
@@ -18,14 +22,14 @@ export const userService = {
     getLoggedinUser,
 }
 
-const AUTH_URL = (process.env.NODE_ENV !== 'development') ? '/api/auth/' : '//localhost:3030/api/auth/';
+const AUTH_URL = 'auth/';
 
 
 async function login({ username, password }) {
     try {
-        const res = await axios.post(AUTH_URL + 'login', { username, password })
-        utilService.saveToStorage('loggedinUser', res.data)
-        return res.data
+        const res = await httpService.post(AUTH_URL + 'login', { username, password })
+        utilService.saveToStorage('loggedinUser', res)
+        return res
     } catch (err) {
         console.log('login err', err);
         throw err
@@ -34,9 +38,9 @@ async function login({ username, password }) {
 
 async function logout() {
     try {
-        const res = await axios.post(AUTH_URL + 'logout')
+        const res = await httpService.post(AUTH_URL + 'logout')
         utilService.saveToStorage('loggedinUser', '')
-        return res.data
+        return res
     } catch (err) {
         console.log('logout err', err);
     }
@@ -44,9 +48,9 @@ async function logout() {
 
 async function signup({ fullname, username, password }) {
     try {
-        const res = await axios.post(AUTH_URL + 'signup', { fullname, username, password })
+        const res = await httpService.post(AUTH_URL + 'signup', { fullname, username, password })
         utilService.saveToStorage('loggedinUser', res.data)
-        return res.data
+        return res
     } catch (err) {
         console.log('signup err', err);
     }
