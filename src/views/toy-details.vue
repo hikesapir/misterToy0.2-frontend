@@ -9,11 +9,15 @@
             <p>inStock: {{ toy.inStock }}</p>
             <hr />
             <b>review:</b>
-            <p v-for="review in toy.reviews">- {{ review }}
+            <p v-for="review in reviews">
+            <b>Author: {{ review.byUser.fullname }}</b>
+            <br>
+            {{ review.txt }}
             <hr></p>
-            <el-button type="primary" round>Add review</el-button>
+            <el-button type="primary" @click="openModal" round>Add review</el-button>
         </div>
-        <add-review @addReview="addReview" :toyId="toy._id"/>
+        <!-- <pre>{{ reviews }}</pre> -->
+        <add-review v-if="isopen" @addReview="addReview" :toyId="toy._id"/>
     </section>
 </template>
 
@@ -31,14 +35,18 @@ export default {
     data() {
         return {
             toy: null,
-
+            isopen: false,
         }
     },
     created() {
         const { id } = this.$route.params
+
         toyService.getById(id).then((toy) => {
             this.toy = toy
+            const test = { aboutToyId: this.toy._id }
+            this.$store.dispatch({ type: 'loadReviews', filterBy: test })
         })
+
     },
     mounted() {
     },
@@ -46,9 +54,16 @@ export default {
         addReview(review) {
             console.log(review);
             this.$store.dispatch({ type: 'addReview', review });
+            this.isopen = false
+        },
+        openModal() {
+            this.isopen = true
         }
     },
     computed: {
+        reviews() {
+            return this.$store.getters.reviews
+        }
     },
     unmounted() {
     },

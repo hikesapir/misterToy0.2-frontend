@@ -11,7 +11,7 @@
             />
             <el-button type="primary" @click="addReview">add</el-button>
         </form>
-        <pre>{{ review }}</pre>
+        <!-- <pre>{{ review }}</pre> -->
     </section>
 </template>
 <script>

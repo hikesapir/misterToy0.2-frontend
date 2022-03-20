@@ -13,8 +13,9 @@ export const reviewService = {
 // return axios.get('api/toy/?', {params: {id: 1223, balanse:13}})
 
 function query(filterBy) {
-  var queryStr = (!filterBy) ? '' : `?name=${filterBy.name}&sort=anaAref`
-  return httpService.get(`review${queryStr}`)
+  // var queryStr = (!filterBy) ? '' : `?name=${filterBy.name}&sort=anaAref`
+  console.log(filterBy);
+  return httpService.get(`review`,  filterBy )
   // return storageService.query('review')
 }
 
@@ -34,7 +35,7 @@ async function add(review) {
   return addedReview
 }
 
-// This IIFE functions for Dev purposes 
+// This IIFE functions for Dev purposes
 // It allows testing of real time updates (such as sockets) by listening to storage events
 // (async () => {
 //   var reviews = await storageService.query('review')
