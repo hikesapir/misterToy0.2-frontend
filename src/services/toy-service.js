@@ -28,7 +28,6 @@ export const toyService = {
 async function query(filterBy) {
     try {
         const res = await httpService.get(TOY_URL, { params: filterBy })
-        console.log(res);
         return res
     } catch (err) {
         console.log('query err', err);

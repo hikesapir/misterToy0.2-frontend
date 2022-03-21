@@ -24,7 +24,7 @@ export const userService = {
 
 const AUTH_URL = 'auth/';
 
-
+// login({ username: 'admin', password: 'admin' })
 async function login({ username, password }) {
     try {
         const res = await httpService.post(AUTH_URL + 'login', { username, password })

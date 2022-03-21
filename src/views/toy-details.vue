@@ -17,6 +17,7 @@
             <el-button type="primary" @click="openModal" round>Add review</el-button>
         </div>
         <!-- <pre>{{ reviews }}</pre> -->
+        <chat-room :toyId="toy._id" :username="username"/>
         <add-review v-if="isopen" @addReview="addReview" :toyId="toy._id"/>
     </section>
 </template>
@@ -24,13 +25,15 @@
 <script>
 import { toyService } from "../services/toy-service"
 import addReview from "../components/add-review.vue"
+import chatRoom from "../components/chat-room.vue"
 
 export default {
     name: 'toy-details',
     props: [],
     emits: [],
     components: {
-        addReview
+        addReview,
+        chatRoom
     },
     data() {
         return {
@@ -46,7 +49,6 @@ export default {
             const test = { aboutToyId: this.toy._id }
             this.$store.dispatch({ type: 'loadReviews', filterBy: test })
         })
-
     },
     mounted() {
     },
@@ -63,6 +65,10 @@ export default {
     computed: {
         reviews() {
             return this.$store.getters.reviews
+        },
+        username() {
+            // if(!this.$store.getters.getUser) return 'a'
+            return this.$store.getters.getUser.username
         }
     },
     unmounted() {
