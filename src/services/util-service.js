@@ -2,6 +2,7 @@ export const utilService = {
   saveToStorage,
   loadFromStorage,
   makeId,
+  debounce,
 }
 
 function saveToStorage(key, value) {
@@ -20,4 +21,44 @@ function makeId(length = 8) {
     txt += possible.charAt(Math.floor(Math.random() * possible.length))
   }
   return txt
+}
+
+// function debounce(func, wait){
+//   let timeout;
+
+//   return function executedFunction(...args) {
+//     const later = () => {
+//       clearTimeout(timeout);
+//       func(...args);
+//     };
+
+//     clearTimeout(timeout);
+//     timeout = setTimeout(later, wait);
+//   };
+// };
+
+// function debounce(func, timeout = 300){
+//   let timer;
+//   return (...args) => {
+//     clearTimeout(timer);
+//     timer = setTimeout(() => { func.apply(this, args); }, timeout);
+//   };
+// }
+// function saveInput(){
+//   console.log('Saving data');
+// }
+// const processChange = debounce(() => saveInput());
+
+function debounce(func, wait = 700) {
+  let timeout
+
+  return function (...args) {
+    const later = () => {
+      clearTimeout(timeout)
+      func(...args)
+    }
+
+    clearTimeout(timeout)
+    timeout = setTimeout(later, wait)
+  }
 }

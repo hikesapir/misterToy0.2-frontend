@@ -9,9 +9,10 @@
         </ul>
         <hr />
         <form @submit.prevent="sendMsg">
-            <input type="text" v-model="msg.txt" placeholder="Your msg" />
+            <input @input="typing" type="text" v-model="msg.txt" placeholder="Your msg" />
             <button>Send</button>
         </form>
+        <p v-if="isSomeoneTyping">{{ typingName }} Is Typing</p>
         {{ username }}
     </section>
 </template>
@@ -19,6 +20,8 @@
 
 <script>
 import { socketService } from "../services/socket.service"
+import { utilService } from "../services/util-service"
+
 export default {
     name: 'chat-room ',
     props: {
@@ -34,12 +37,17 @@ export default {
         return {
             msg: { from: 'Me', txt: '' },
             msgs: [],
+            isSomeoneTyping: false,
+            typingName: ''
         }
     },
     created() {
         // console.log(toyId);
         socketService.emit('chat topic', this.toyId)
         socketService.on('chat addMsg', this.addMsg)
+        socketService.on('typing', this.setTyping)
+        socketService.on('not-typing', this.test)
+       this.bounce = utilService.debounce(this.stopType);
 
     },
     mounted() {
@@ -59,6 +67,23 @@ export default {
             // setTimeout(() => this.addMsg({ from: 'Dummy', txt: 'Yey' }), 2000)
             this.msg = { from: 'me', txt: '' };
         },
+        typing() {
+            console.log('is work');
+            socketService.emit('is-typing', this.username)
+            this.bounce();
+        },
+        stopType() {
+            console.log('stopType');
+            socketService.emit('stoped-typing')
+        },
+        setTyping(username) {
+            console.log(username);
+            this.isSomeoneTyping = true;
+            this.typingName = username
+        },
+        test() {
+            this.isSomeoneTyping = false;
+        }
     },
     computed: {
     },
