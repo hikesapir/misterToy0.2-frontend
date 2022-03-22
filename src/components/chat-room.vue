@@ -46,7 +46,7 @@ export default {
         socketService.emit('chat topic', this.toyId)
         socketService.on('chat addMsg', this.addMsg)
         socketService.on('typing', this.setTyping)
-        socketService.on('not-typing', this.test)
+        socketService.on('not-typing', this.setASUntype)
        this.bounce = utilService.debounce(this.stopType);
 
     },
@@ -81,7 +81,7 @@ export default {
             this.isSomeoneTyping = true;
             this.typingName = username
         },
-        test() {
+        setASUntype() {
             this.isSomeoneTyping = false;
         }
     },
